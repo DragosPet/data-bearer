@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "data-bearer"
+version = "0.1.0"
+description = "Small CLI for interacting with Database systems "
+authors = ["DragosPet <iuliandragospet@gmail.com>"]
+readme = "README.md"
+packages = [{include = "data_bearer"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
