@@ -11,6 +11,8 @@ python = "^3.8"
 psycopg = {extras = ["binary"], version = "^3.1.8"}
 pandas = "^1.5.3"
 python-dotenv = "^0.21.1"
+ConfigArgParse = "^1.5.3"
+PyYAML = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.1"
@@ -20,3 +22,6 @@ pylint = "^2.16.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+bearer-init-config = "data_bearer.commands.init_config:main"

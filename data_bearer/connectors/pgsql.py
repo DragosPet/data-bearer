@@ -75,5 +75,5 @@ class PostGresConnector(Connector):
 
 if __name__ == "__main__":
     con = PostGresConnector()
-    test_df = con.fetch_data("SELECT * FROM data_store.agresi_stop.ud_scrap limit 10;")
+    test_df = con.fetch_data("SELECT CURRENT_DATE AS TODAY;")
     print(test_df)
