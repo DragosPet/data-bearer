@@ -29,6 +29,14 @@ def read_local_config(workdir) -> list :
         print("Provided path not available. Please provide a valid working directory.")
     return options
 
+def format_header() -> str:
+    "Formatting properties for Data Bearer commands."
+    return f"""
+{'-'*21}
+---- DATA BEARER ----
+{'-'*21}
+"""
+
 
 if __name__ == '__main__' : 
     test_args = {
