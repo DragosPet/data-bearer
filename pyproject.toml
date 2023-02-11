@@ -25,3 +25,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 bearer-init-config = "data_bearer.commands.init_config:main"
+bearer-run-sql= "data_bearer.commands.run_config:main"

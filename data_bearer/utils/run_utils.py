@@ -13,7 +13,7 @@ def persist_local_config(workdir, args) -> None:
     else :
         print("Unable to create local state storage. Input workdir is not available !")
 
-def read_local_config(workdir) -> list :
+def read_local_config(workdir) -> dict :
     """Given input working directory, read the variables from local storage."""
     options = {}
     if os.path.exists(workdir) :
@@ -28,6 +28,20 @@ def read_local_config(workdir) -> list :
     else : 
         print("Provided path not available. Please provide a valid working directory.")
     return options
+
+def read_sql_files(workdir) -> list :
+    """Given input working directory, list the sql files stored for execution."""
+    file_list = []
+    if os.path.exists(workdir):
+        if os.path.exists(f"{workdir}/sql") :
+            print("Listing sql files available !")
+            file_list = os.listdir(f"{workdir}/sql")
+        else :
+            print("No SQL folder available in the working directory!")            
+    else :
+        print("Parent path is not available!")
+    return file_list
+    
 
 def format_header() -> str:
     "Formatting properties for Data Bearer commands."

@@ -28,7 +28,6 @@ class PostGresConnector(Connector):
         if db_host and db_port and db_user and db_pass and db_target_database:
             logging.info("All properties available, creating connection !")
             connection_string = f"""host={db_host} port={db_port} user={db_user} password={db_pass} dbname={db_target_database}"""
-            print(connection_string)
             try:
                 self.connection = psycopg.connect(connection_string)
             except:
