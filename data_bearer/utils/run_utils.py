@@ -17,9 +17,6 @@ def read_local_config(workdir) -> dict :
     """Given input working directory, read the variables from local storage."""
     options = {}
     if os.path.exists(workdir) :
-
-        with open(f"{workdir}/run_config.yaml", 'r') as f :
-                options = safe_load(f)
         try :  
             with open(f"{workdir}/run_config.yaml", 'r') as f :
                 options = safe_load(f)
@@ -46,9 +43,9 @@ def read_sql_files(workdir) -> list :
 def format_header() -> str:
     "Formatting properties for Data Bearer commands."
     return f"""
-{'-'*21}
----- DATA BEARER ----
-{'-'*21}
+{'-'*51}
+{'-'*20}DATA BEARER{'-'*20}
+{'-'*51}
 """
 
 
