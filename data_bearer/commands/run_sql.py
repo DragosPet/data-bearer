@@ -3,7 +3,7 @@ Based on the run_config.yaml that should be initialized before."""
 
 import os
 import configargparse
-from data_bearer.utils.run_utils import read_local_config, format_header, read_sql_files
+from data_bearer.utils.run_utils import read_local_config, format_header, read_sql_files, export_dataframe
 from data_bearer.connectors.pgsql import PostGresConnector
 
 
@@ -60,6 +60,12 @@ def run_sql_code(args):
             print(f"{el}")
         print("")
         sql_file_name = input("Input sql file name : \n")
+        export_flag = input("Do you want to export the data ? [y/n] \n")
+        if export_flag == 'y' :
+            export_path = input("Please input export path: \n")
+        else :
+            export_path = None
+
 
     print("Checking if sql_file_name is in all sql scripts.")
 
@@ -92,11 +98,16 @@ def run_sql_code(args):
 
         print(f"Executing sql : {sql_string}\n")
         data = client.fetch_data(sql_string)
+        print("Received Data. Header:")
         print(data.head())
 
-        
-    print(format_header())
+        if export_path :
+            print("Exporting data to provided path.")
+            export_dataframe(export_path, data)
+        else :
+            print("To export data, please provide a valid path.")
 
+    print(format_header())
 
 
 def main():

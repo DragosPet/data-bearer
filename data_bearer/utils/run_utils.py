@@ -3,6 +3,7 @@ General helper functions.
 """
 import os
 from yaml import safe_load, safe_dump
+from datetime import datetime
 
 def persist_local_config(workdir, args) -> None:
     """Given input working directory and arguments dict, store the config for reusability."""
@@ -47,6 +48,19 @@ def format_header() -> str:
 {'-'*20}DATA BEARER{'-'*20}
 {'-'*51}
 """
+
+def export_dataframe(export_path, data) -> None:
+    """Given input Dataframe, export data content to local path."""
+    if os.path.exists(export_path) : 
+        file_name = f"{export_path}/export_sql_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+        data.to_csv(
+            file_name,
+            sep=",",
+            index=False
+        )
+    else :
+        print("Provided path is not available. Please input a valid path.")
+
 
 
 if __name__ == '__main__' : 
