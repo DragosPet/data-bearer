@@ -5,6 +5,7 @@ import os
 import configargparse
 from data_bearer.utils.run_utils import read_local_config, format_header, read_sql_files, export_dataframe
 from data_bearer.connectors.pgsql import PostGresConnector
+from data_bearer.connectors.sqlitesql import SqliteConnector
 
 
 parser = configargparse.ArgParser()
@@ -37,7 +38,6 @@ parser.add(
     required=False,
     help="SQL File that would be executed.",
 )
-
 
 def run_sql_code(args):
     """command function"""
@@ -84,14 +84,20 @@ def run_sql_code(args):
         conn_type = options["CONNECTION_TYPE"]
         print(f"Execution Context : {conn_type}")
 
-        client = PostGresConnector(
-            db_host,
-            db_port,
-            db_user,
-            db_password,
-            db_target_db,
-            "WARN"
-        )
+        if conn_type == "POSTGRES" : 
+            client = PostGresConnector(
+                db_host,
+                db_port,
+                db_user,
+                db_password,
+                db_target_db,
+                "WARN"
+            )
+        if conn_type == "SQLITE" : 
+            client = SqliteConnector(
+                db_target_db,
+                "WARN"
+            )
 
         with open(f"{workdir}/sql/{sql_file_name}", 'r') as f:
             sql_string = " ".join(f.readlines())
