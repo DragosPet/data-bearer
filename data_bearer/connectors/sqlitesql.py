@@ -6,6 +6,7 @@ import sqlite3
 import pandas as pd
 from data_bearer.connectors.generic_connector import Connector
 
+
 class SqliteConnector(Connector):
     """Class for Sqlite connectivity."""
 
@@ -67,6 +68,6 @@ class SqliteConnector(Connector):
 
 
 if __name__ == "__main__":
-    con = SqliteConnector("test_files/test_sqlite.db")
-    test_df = con.fetch_data("SELECT * FROM TEST_TABLE;")
+    con = SqliteConnector()
+    test_df = con.fetch_data("SELECT CURRENT_DATE;")
     print(test_df.info())
