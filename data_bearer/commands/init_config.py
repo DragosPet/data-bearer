@@ -12,7 +12,7 @@ def init_config():
     print("Starting configuration of client!")
 
     workdir = input("Input working directory (where to store the db config) : \n")
-    connection_type = input("Input Connection TYPE ([POSTGRES/SQLITE]) : \n")
+    connection_type = input("Input Connection TYPE ([POSTGRES/SQLITE/MYSQL]) : \n")
     replace_flag = input("Replace Existing Config (if any) ? : \n")
     db_host = input("Input Database Host (if necessary) : \n")
     db_port = input("Input Database Port (if necessary) : \n")
