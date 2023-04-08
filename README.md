@@ -3,8 +3,10 @@
 Small CLI for interacting with different database services.
 
 Supported database engines : 
+
 - Postgres (Connection type : POSTGRESQL)
 - Sqlite (Connection type : SQLITE)
+- MySQL (Connection type : MYSQL)
 
 ### Changelog
 
