@@ -84,16 +84,31 @@ def run_sql_code(args):
         db_user = options["DB_USERNAME"]
         db_password = options["DB_PASSWORD"]
         db_target_db = options["DB_DATABASE"]
+        log_level = options["LOG_LEVEL"]
+        use_files = options["USE_FILES"]
+        logs_path = options["LOGS_PATH"]
+
 
         conn_type = options["CONNECTION_TYPE"]
         print(f"Execution Context : {conn_type}")
 
         if conn_type == "POSTGRES":
             client = PostGresConnector(
-                db_host, db_port, db_user, db_password, db_target_db, "WARN"
+                db_host=db_host,
+                db_port=db_port,
+                db_user=db_user,
+                db_pass=db_password,
+                db_target_database=db_target_db,
+                log_level=log_level,
+                use_files=use_files,
+                logs_path=logs_path
             )
         if conn_type == "SQLITE":
-            client = SqliteConnector(db_target_db, "WARN")
+            client = SqliteConnector(
+                db_target_database=db_target_db,
+                log_level=log_level,
+                use_files=use_files,
+                logs_path=logs_path)
 
         if conn_type == "MYSQL":
             client = MySqlConnector(
@@ -102,7 +117,9 @@ def run_sql_code(args):
                 db_user=db_user,
                 db_pass=db_password,
                 db_target_database=db_target_db,
-                log_level="WARN",
+                log_level=log_level,
+                use_files=use_files,
+                logs_path=logs_path
             )
 
         with open(f"{workdir}/sql/{sql_file_name}", "r") as f:

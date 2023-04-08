@@ -16,10 +16,12 @@ class SqliteConnector(Connector):
         self,
         db_target_database=None,
         log_level="WARN",
+        use_files="n",
+        logs_path=None
     ):
         """Connect to Sqlite using connection properties."""
 
-        self.set_logger(log_level)
+        self.set_logger(log_level, use_file=use_files, path=logs_path)
 
         if db_target_database:
             logging.info("All properties available, creating connection !")

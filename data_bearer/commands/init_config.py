@@ -19,6 +19,13 @@ def init_config():
     db_user = input("Input Database User (if necessary) : \n")
     db_password = getpass("Input Database Password (if necessary) : \n")
     db_target_db = input("Input Target Database (if sqlite, path to db) : \n")
+    log_level = input("Input desired Logging level ([INFO/WARN/ERROR]) : \n")
+    redirect_file = input("Redirect logs to files ? (y/n) : \n")
+
+    if redirect_file.upper() == "Y" :
+        logs_path = f"{workdir}/logs"
+    else:
+        logs_path = None
 
     config_data = {
         "DB_HOST": db_host,
@@ -27,6 +34,10 @@ def init_config():
         "DB_USERNAME": db_user,
         "DB_PASSWORD": db_password,
         "DB_DATABASE": db_target_db,
+        "LOG_LEVEL": log_level,
+        "USE_FILES": redirect_file,
+        "LOGS_PATH": logs_path
+
     }
 
     if os.path.exists(f"{workdir}/run_config.yaml"):

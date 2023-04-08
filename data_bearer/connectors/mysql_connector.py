@@ -17,10 +17,13 @@ class MySqlConnector(Connector):
         db_pass=None,
         db_target_database=None,
         log_level="INFO",
+        use_files="n",
+        logs_path=None
+
     ):
         """Connect to MySQL using connection properties."""
 
-        self.set_logger(log_level)
+        self.set_logger(log_level, use_file=use_files, path=logs_path)
 
         if db_host and db_port and db_user and db_pass and db_target_database:
             logging.info("All properties available, creating connection !")
