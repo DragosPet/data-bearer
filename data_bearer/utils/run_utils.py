@@ -62,7 +62,6 @@ def export_dataframe(export_path, data) -> None:
         print("Provided path is not available. Please input a valid path.")
 
 
-
 if __name__ == '__main__' : 
     test_args = {
         "arg1": "db_test",

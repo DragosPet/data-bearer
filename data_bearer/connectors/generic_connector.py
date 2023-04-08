@@ -3,6 +3,7 @@ Generic connector abstract class, for future inheritance of specific connectors.
 """
 from abc import ABC
 import logging
+import os
 
 
 class Connector(ABC):
@@ -21,8 +22,11 @@ class Connector(ABC):
             logging_level = logging.WARN
         else:
             logging_level = logging.ERROR
-        if use_file == "y":
+        if use_file.upper() == "Y":
             if path:
+                if os.path.exists(path=path) == False:
+                    os.mkdir(path=path)
+
                 logging.basicConfig(
                     format="%(asctime)s %(levelname)s %(message)s",
                     datefmt="%m/%d/%Y %I:%M:%S",

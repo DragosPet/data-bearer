@@ -3,11 +3,14 @@
 Small CLI for interacting with different database services.
 
 Supported database engines : 
+
 - Postgres (Connection type : POSTGRESQL)
 - Sqlite (Connection type : SQLITE)
+- MySQL (Connection type : MYSQL)
 
 ### Changelog
 
+- v 0.1.1 - Added support for MySQL connector and redirecting logs to files
 - v 0.1.0 - inital functionality added
 
 # Build and installation
@@ -57,9 +60,13 @@ Input Database Password (if necessary) :
 
 Input Target Database (if sqlite, path to db) :
 
+Input desired Logging level ([INFO/WARN/ERROR]) :
+
+Redirect logs to files ? (y/n) :
+
 Config already exists.
 Replace flag is marked as Y. Replacing config.
-Exporting config : dict_keys(['DB_HOST', 'CONNECTION_TYPE', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE'])
+Exporting config : dict_keys(['DB_HOST', 'CONNECTION_TYPE', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE','LOG_LEVEL','USE_FILES','LOGS_PATH'])
 Creating local state storage
 All set !
 

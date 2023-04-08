@@ -1,36 +1,44 @@
-"""
-Connector for SQLITE database interaction.
-"""
+import mysql.connector
 import logging
-import sqlite3
 import pandas as pd
 from data_bearer.connectors.generic_connector import Connector
 
 
-class SqliteConnector(Connector):
-    """Class for Sqlite connectivity."""
+class MySqlConnector(Connector):
+    """Class for MySQL connectivity."""
 
-    __package_name__ = "sqlite"
+    __package_name__ = "mysql"
 
     def __init__(
         self,
+        db_host=None,
+        db_port=None,
+        db_user=None,
+        db_pass=None,
         db_target_database=None,
-        log_level="WARN",
+        log_level="INFO",
         use_files="n",
         logs_path=None
+
     ):
-        """Connect to Sqlite using connection properties."""
+        """Connect to MySQL using connection properties."""
 
         self.set_logger(log_level, use_file=use_files, path=logs_path)
 
-        if db_target_database:
+        if db_host and db_port and db_user and db_pass and db_target_database:
             logging.info("All properties available, creating connection !")
             try:
-                self.connection = sqlite3.connect(db_target_database)
-            except:
+                self.connection = mysql.connector.connect(
+                    user=db_user,
+                    password=db_pass,
+                    host=db_host,
+                    port=db_port,
+                    database=db_target_database,
+                )
+            except Exception as e:
                 self.connection = None
                 logging.error(
-                    "Unable to initialize connection, please check db credentials"
+                    f"Unable to initialize connection, please check db credentials. Received Error Type {type(e)}. Value : {e=}"
                 )
         else:
             logging.warning(
@@ -50,9 +58,11 @@ class SqliteConnector(Connector):
         if self.connection:
             logging.info("Connection available, starting data read!")
             logging.info("Opening new db cursor.")
+            cursor = self.connection.cursor()
             try:
-                cursor = self.connection.cursor()
-                local_data = cursor.execute(sql_query).fetchall()
+                cursor = self.connection.cursor(dictionary=True)
+                cursor.execute(sql_query)
+                local_data = cursor.fetchall()
                 column_names = [i[0] for i in cursor.description]
                 local_df = pd.DataFrame(local_data, columns=column_names)
             except:
@@ -70,6 +80,6 @@ class SqliteConnector(Connector):
 
 
 if __name__ == "__main__":
-    con = SqliteConnector()
-    test_df = con.fetch_data("SELECT CURRENT_DATE;")
-    print(test_df.info())
+    con = MySqlConnector()
+    test_df = con.fetch_data("SELECT CURRENT_DATE() AS TODAY;")
+    print(test_df)
